@@ -1,0 +1,53 @@
+{% extends 'home.html' %}
+{% block content %}
+    <div class="text-center">
+        <h1>Hello, {{ profile_user.username }}!</h1>
+        <h5>This is your profile</h5>
+        {% if profile.profile_image %}
+            <img class="rounded-circle mb-3" src="{{ profile.profile_image.url }}" alt="Generic placeholder image"
+                 width="140"
+                 height="140">
+        {% else %}
+            <img class="rounded-circle mb-3"
+                 src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+                 alt="Generic placeholder image" width="140"
+                 height="140">
+        {% endif %}
+        <div class="w-50 m-auto">
+            <form action="{% url 'user profile' profile_user.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% if articles %}
+        <h2 class='text-center'>These are you adventures: </h2>
+        <div class="row">
+            <div class="row">
+                {% for article in articles %}
+                    <div class="col-lg-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ article.image.url }}" class="card-img-top" alt="Image of {{ article.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.destination }}, Likes: {{ article.like_set.count }}</h5>
+                                <p class="card-text">{{ article.content }}</p>
+                                <p class="text"> {{ article.hashtag }} </p>
+                                <p class="card-text"><strong>Author: {{ article.user.user.username }}</strong></p>
+                                <a href="{% url 'article details or comment' article.id %}" class="btn btn-primary">See
+                                    details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h2>You have no articles yet</h2>
+            <a href="{% url 'article creat' %}" class="btn btn-success">Add your first article!</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

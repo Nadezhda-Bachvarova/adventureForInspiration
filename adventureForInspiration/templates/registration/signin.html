@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load bootstrap4 %}
+
+    <h1 class="text-center">Login</h1>
+    <div class="row d-flex justify-content-center">
+        <form method="POST" action="{% url 'signin user' %}">
+            {#            <input type="hidden" name="return_url" value="{{ request.GET.next }}" />#}
+            {% csrf_token %}
+
+            {% for field in login_form %}
+                {% bootstrap_field field %}
+                {{ field.error }}
+            {% endfor %}
+
+            {% buttons %}
+                <button class="btn btn-primary">Login</button>
+                <p>Do not have an account?<a href="{% url 'signup' %}?next={{ request.GET.next }}"> Sign up here and
+                    enjoy. </a></p>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}

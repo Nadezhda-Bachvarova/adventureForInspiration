@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load bootstrap4 %}
+
+
+    <div class="d-flex">
+        <div class="d-inline p-2 w-50">
+            <img class="card-img-top" src="{{ article.image.url }}" alt="Article image">
+        </div>
+        <div class="d-inline p-2 w-50">
+            <div class="text">
+                <h3 class="card-title">{{ article.title }}</h3>
+                <h3 class="align-content-center">{{ author }}</h3>
+                <p class="card-text">{{ article.content }}</p>
+                {% if can_edit %}
+                    <a href="{% url 'edit article' article.id %}" class="btn btn-success">Edit</a>
+                {% endif %}
+                {% if can_delete %}
+                    <a href="{% url 'delete article' article.id %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+                {% if can_like %}
+                    {% if has_liked %}
+                        <a href="{% url 'like article' article.id %}"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                    {% else %}
+                        <a href="{% url 'like article' article.id %}"><i class="fa fa-heart-o"
+                                                                         aria-hidden="true"></i></a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <p class="mt-2">Likes: {{ article.like_set.count }}</p>
+        </div>
+    </div>
+    <div class="d-block" style="background-color: powderblue; padding:2%">
+        {% if article.comment_set.exists %}
+            {% for comment in article.comment_set.all %}
+                <div class="box">
+                    <a>{{ comment.user.user.username }}</a>
+                    <h5><em>{{ comment.text }}</em></h5>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="box">
+                <h2>There are no comments.</h2>
+            </div>
+        {% endif %}
+        {% if can_comment %}
+            <div class="box">
+                <form method="post" action="{% url 'article details or comment' article.id %}">
+                    {{ form }}
+                    {% csrf_token %}
+                    <button class="btn btn-primary mt-2" type="submit">Add comment</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

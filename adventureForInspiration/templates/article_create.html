@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <h1 class="text-center"> Add your adventure: </h1>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <form method="POST" class="furniture-form" enctype="multipart/form-data">
+                <input type="hidden" name="return_url" value="{{ request.GET.next }}"/>
+                {% csrf_token %}
+                {% for field in form %}
+                    {% bootstrap_field field %}
+                {% endfor %}
+                {% buttons %}
+                    <button class="btn btn-primary">Publish</button>
+                {% endbuttons %}
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+{% endblock %}
