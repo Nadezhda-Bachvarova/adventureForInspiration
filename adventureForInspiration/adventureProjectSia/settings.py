@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'adventureProjectSia.advanture_app',
     'bootstrap4',
     'adventureProjectSia.adventure_core',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
