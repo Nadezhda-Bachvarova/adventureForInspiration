@@ -1,0 +1,38 @@
+div {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: black;
+}
+
+body, h3 {
+    background-color: lightgrey;
+}
+
+.navbar-collapse {
+    color: black;
+    background-color: darkgray;
+}
+
+.navbar {
+    margin: 0;
+    padding: 0;
+    text-indent: 30px;
+}
+
+image {
+    position: center;
+}
+
+.image-cover {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    border-color: lightgrey;
+}
+
+h3, h1 {
+    margin-top: 30px;
+    font-size: 2.4rem;
+}
