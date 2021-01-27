@@ -1,3 +1,4 @@
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path
 
 from adventureProjectSia.advanture_app import views
